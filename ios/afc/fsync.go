@@ -414,6 +414,43 @@ func (conn *Connection) PullSingleFile(srcPath, dstPath string) error {
 	return nil
 }
 
+func (conn *Connection) ReadFile(srcPath string, buff []byte) error {
+	fileInfo, err := conn.Stat(srcPath)
+	if err != nil {
+		return err
+	}
+	if fileInfo.IsLink() {
+		srcPath = fileInfo.stLinktarget
+	}
+	fd, err := conn.OpenFile(srcPath, Afc_Mode_RDONLY)
+	if err != nil {
+		return err
+	}
+	defer conn.CloseFile(fd)
+
+	leftSize := fileInfo.stSize
+	maxReadSize := 64 * 1024
+	for leftSize > 0 {
+		headerPayload := make([]byte, 16)
+		binary.LittleEndian.PutUint64(headerPayload, fd)
+		thisLength := Afc_header_size + 16
+		binary.LittleEndian.PutUint64(headerPayload[8:], uint64(maxReadSize))
+		header := AfcPacketHeader{Magic: Afc_magic, Packet_num: conn.packageNumber, Operation: Afc_operation_file_read, This_length: thisLength, Entire_length: thisLength}
+		conn.packageNumber++
+		packet := AfcPacket{Header: header, HeaderPayload: headerPayload, Payload: make([]byte, 0)}
+		response, err := conn.sendAfcPacketAndAwaitResponse(packet)
+		if err != nil {
+			return err
+		}
+		if err = conn.checkOperationStatus(response); err != nil {
+			return fmt.Errorf("read file: unexpected afc status: %v", err)
+		}
+		leftSize = leftSize - int64(len(response.Payload))
+		copy(buff, response.Payload)
+	}
+	return nil
+}
+
 func (conn *Connection) Pull(srcPath, dstPath string) error {
 	fileInfo, err := conn.Stat(srcPath)
 	if err != nil {
