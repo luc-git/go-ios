@@ -1,4 +1,4 @@
-module github.com/danielpaulus/go-ios
+module github.com/luc-git/go-ios
 
 go 1.17
 
