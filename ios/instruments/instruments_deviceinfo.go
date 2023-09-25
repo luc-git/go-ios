@@ -3,9 +3,9 @@ package instruments
 import (
 	"time"
 
-	"github.com/danielpaulus/go-ios/ios"
-	dtx "github.com/danielpaulus/go-ios/ios/dtx_codec"
-	"github.com/danielpaulus/go-ios/ios/nskeyedarchiver"
+	"github.com/luc-git/go-ios/ios"
+	dtx "github.com/luc-git/go-ios/ios/dtx_codec"
+	"github.com/luc-git/go-ios/ios/nskeyedarchiver"
 )
 
 const deviceInfoServiceName = "com.apple.instruments.server.services.deviceinfo"

@@ -7,8 +7,8 @@ import (
 	"os"
 	"testing"
 
-	"github.com/danielpaulus/go-ios/ios"
-	"github.com/danielpaulus/go-ios/ios/diagnostics"
+	"github.com/luc-git/go-ios/ios"
+	"github.com/luc-git/go-ios/ios/diagnostics"
 	log "github.com/sirupsen/logrus"
 	"github.com/stretchr/testify/assert"
 )

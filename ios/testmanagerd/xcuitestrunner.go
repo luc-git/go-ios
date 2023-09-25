@@ -7,14 +7,14 @@ import (
 	"strings"
 	"time"
 
-	"github.com/danielpaulus/go-ios/ios/house_arrest"
+	"github.com/luc-git/go-ios/ios/house_arrest"
 
-	"github.com/danielpaulus/go-ios/ios"
-	dtx "github.com/danielpaulus/go-ios/ios/dtx_codec"
-	"github.com/danielpaulus/go-ios/ios/installationproxy"
-	"github.com/danielpaulus/go-ios/ios/instruments"
-	"github.com/danielpaulus/go-ios/ios/nskeyedarchiver"
 	"github.com/google/uuid"
+	"github.com/luc-git/go-ios/ios"
+	dtx "github.com/luc-git/go-ios/ios/dtx_codec"
+	"github.com/luc-git/go-ios/ios/installationproxy"
+	"github.com/luc-git/go-ios/ios/instruments"
+	"github.com/luc-git/go-ios/ios/nskeyedarchiver"
 	log "github.com/sirupsen/logrus"
 )
 

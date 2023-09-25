@@ -6,8 +6,8 @@ package instruments_test
 import (
 	"testing"
 
-	ios "github.com/danielpaulus/go-ios/ios"
-	"github.com/danielpaulus/go-ios/ios/instruments"
+	ios "github.com/luc-git/go-ios/ios"
+	"github.com/luc-git/go-ios/ios/instruments"
 	"github.com/stretchr/testify/assert"
 )
 

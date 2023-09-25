@@ -8,8 +8,8 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/danielpaulus/go-ios/ios/nskeyedarchiver"
-	archiver "github.com/danielpaulus/go-ios/ios/nskeyedarchiver"
+	"github.com/luc-git/go-ios/ios/nskeyedarchiver"
+	archiver "github.com/luc-git/go-ios/ios/nskeyedarchiver"
 	log "github.com/sirupsen/logrus"
 )
 

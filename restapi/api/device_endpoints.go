@@ -5,12 +5,12 @@ import (
 	"net/http"
 	"sync"
 
-	"github.com/danielpaulus/go-ios/ios"
-	"github.com/danielpaulus/go-ios/ios/instruments"
-	"github.com/danielpaulus/go-ios/ios/mcinstall"
-	"github.com/danielpaulus/go-ios/ios/screenshotr"
-	"github.com/danielpaulus/go-ios/ios/simlocation"
 	"github.com/gin-gonic/gin"
+	"github.com/luc-git/go-ios/ios"
+	"github.com/luc-git/go-ios/ios/instruments"
+	"github.com/luc-git/go-ios/ios/mcinstall"
+	"github.com/luc-git/go-ios/ios/screenshotr"
+	"github.com/luc-git/go-ios/ios/simlocation"
 	log "github.com/sirupsen/logrus"
 )
 
