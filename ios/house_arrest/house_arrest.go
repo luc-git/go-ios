@@ -26,19 +26,19 @@ func New(device ios.DeviceEntry, bundleID string) (*Connection, error) {
 	if err != nil {
 		return &Connection{}, err
 	}
-	err = vendContainer(deviceConn, bundleID)
+	err = vendDocuments(deviceConn, bundleID)
 	if err != nil {
 		return &Connection{}, err
 	}
 	return &Connection{deviceConn: deviceConn}, nil
 }
 
-func vendContainer(deviceConn ios.DeviceConnectionInterface, bundleID string) error {
+func vendDocuments(deviceConn ios.DeviceConnectionInterface, bundleID string) error {
 	plistCodec := ios.NewPlistCodec()
-	vendContainer := map[string]interface{}{"Command": "VendContainer", "Identifier": bundleID}
-	msg, err := plistCodec.Encode(vendContainer)
+	vendDocuments := map[string]interface{}{"Command": "VendDocuments", "Identifier": bundleID}
+	msg, err := plistCodec.Encode(vendDocuments)
 	if err != nil {
-		return fmt.Errorf("VendContainer Encoding cannot fail unless the encoder is broken: %v", err)
+		return fmt.Errorf("VendDocuments Encoding cannot fail unless the encoder is broken: %v", err)
 	}
 	err = deviceConn.Send(msg)
 	if err != nil {
@@ -52,8 +52,8 @@ func vendContainer(deviceConn ios.DeviceConnectionInterface, bundleID string) er
 	return checkResponse(response)
 }
 
-func checkResponse(vendContainerResponseBytes []byte) error {
-	response, err := plistFromBytes(vendContainerResponseBytes)
+func checkResponse(vendDocumentsResponseBytes []byte) error {
+	response, err := plistFromBytes(vendDocumentsResponseBytes)
 	if err != nil {
 		return err
 	}
@@ -63,11 +63,11 @@ func checkResponse(vendContainerResponseBytes []byte) error {
 	if response.Error != "" {
 		return errors.New(response.Error)
 	}
-	return errors.New("unknown error during vendcontainer")
+	return errors.New("unknown error during venddocuments")
 }
 
-func plistFromBytes(plistBytes []byte) (vendContainerResponse, error) {
-	var vendResponse vendContainerResponse
+func plistFromBytes(plistBytes []byte) (vendDocumentsResponse, error) {
+	var vendResponse vendDocumentsResponse
 	decoder := plist.NewDecoder(bytes.NewReader(plistBytes))
 
 	err := decoder.Decode(&vendResponse)
@@ -77,7 +77,7 @@ func plistFromBytes(plistBytes []byte) (vendContainerResponse, error) {
 	return vendResponse, nil
 }
 
-type vendContainerResponse struct {
+type vendDocumentsResponse struct {
 	Status string
 	Error  string
 }
