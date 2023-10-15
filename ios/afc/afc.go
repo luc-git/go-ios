@@ -14,6 +14,7 @@ const (
 	Afc_operation_data                     uint64 = 0x00000002
 	Afc_operation_read_dir                 uint64 = 0x00000003
 	Afc_operation_remove_path              uint64 = 0x00000008
+	Afc_operation_rename_path              uint64 = 0x00000018
 	Afc_operation_make_dir                 uint64 = 0x00000009
 	Afc_operation_file_info                uint64 = 0x0000000A
 	Afc_operation_device_info              uint64 = 0x0000000B

@@ -108,6 +108,24 @@ func (conn *Connection) RemovePathAndContents(path string) error {
 	return nil
 }
 
+func (conn *Connection) RenamePath(from string, to string) error {
+	headerPayload := []byte(from + "\x00" + to)
+	headerLength := uint64(len(headerPayload))
+	thisLength := Afc_header_size + headerLength
+
+	header := AfcPacketHeader{Magic: Afc_magic, Packet_num: conn.packageNumber, Operation: Afc_operation_rename_path, This_length: thisLength, Entire_length: thisLength}
+	conn.packageNumber++
+	packet := AfcPacket{Header: header, HeaderPayload: headerPayload, Payload: nil}
+	response, err := conn.sendAfcPacketAndAwaitResponse(packet)
+	if err != nil {
+		return err
+	}
+	if err = conn.checkOperationStatus(response); err != nil {
+		return fmt.Errorf("rename: unexpected afc status: %v", err)
+	}
+	return nil
+}
+
 func (conn *Connection) RemoveAll(srcPath string) error {
 	fileInfo, err := conn.Stat(srcPath)
 	if err != nil {
